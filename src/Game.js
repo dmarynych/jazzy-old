@@ -11,6 +11,7 @@ function(Tile, Map, Point3D, Sprite) {
         this.tickNumber = 0;
         this.uniqueTiles = [];
         this.tiles = {};
+        this.watchedHotkeys = [];
 
         this.events = _.extend({}, $.eventEmitter);
 
@@ -45,14 +46,6 @@ function(Tile, Map, Point3D, Sprite) {
         this.map.init();
 
         this.startLoop();
-
-        //fbug(this.settings);
-
-        key('up, down, left, right', function(event, handler) {
-            this.events.trigger('keypress:'+ handler.key, handler.key);
-
-            return false;
-        }.bind(this));
     };
 
     Game.prototype.startLoop = function() {

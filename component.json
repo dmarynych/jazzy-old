@@ -9,6 +9,6 @@
     "requirejs-plugins": "latest",
     "requirejs-domready": "~2.0.1",
     "requirejs-i18n": "~2.0.1",
-    "keymaster": "latest"
+    "jquery.hotkeys": "https://github.com/jeresig/jquery.hotkeys.git#~0.1.0"
   }
 }

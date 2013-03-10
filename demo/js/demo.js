@@ -1,4 +1,4 @@
-define(['../../src/Game'], function(Game) {
+define(['../../src/Game', 'jquery'], function(Game) {
     'use strict';
 
     var demo = {
@@ -37,7 +37,32 @@ define(['../../src/Game'], function(Game) {
                 pos: [4, 4]
             });
 
-            game.events.on('keypress:left keypress:up keypress:right keypress:down', function(event, name) {
+            $(document)
+                .bind('keydown', 'left', function() {
+                    game.getEntity('player').startMovement('left');return false;
+                })
+                .bind('keydown', 'up', function() {
+                    game.getEntity('player').startMovement('up');return false;
+                })
+                .bind('keydown', 'right', function() {
+                    game.getEntity('player').startMovement('right');return false;
+                })
+                .bind('keydown', 'down', function() {
+                    game.getEntity('player').startMovement('down');return false;
+                })
+                .bind('keyup', 'left', function() {
+                    game.getEntity('player').stopMovement();return false;
+                })
+                .bind('keyup', 'up', function() {
+                    game.getEntity('player').stopMovement();return false;
+                })
+                .bind('keyup', 'right', function() {
+                    game.getEntity('player').stopMovement();return false;
+                })
+                .bind('keyup', 'down', function() {
+                    game.getEntity('player').stopMovement();return false;
+                });
+            /*game.keypress('keypress:left keypress:up keypress:right keypress:down', function(event, name) {
                 var player = game.getEntity('player');
                 player.startMovement(name);
             }.bind(this));
@@ -45,7 +70,7 @@ define(['../../src/Game'], function(Game) {
             game.events.on('keyup:left keyup:up keyup:right keyup:down', function(event, name) {
                 var player = game.getEntity('player');
                 player.stopMoving();
-            }.bind(this));
+            }.bind(this));*/
 
 
 

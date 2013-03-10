@@ -4,7 +4,7 @@ require.config({
         'jquery': '../../components/jquery/jquery',
         'async': '../../components/async/dist/async.min',
         'underscore': '../../components/underscore/underscore',
-        'keymaster': '../../components/keymaster/keymaster',
+        'jquery.hotkeys': '../../components/jquery.hotkeys/jquery.hotkeys',
 
         // requirejs plugins
         'css': 'libs/css',
@@ -29,8 +29,8 @@ require.config({
         'utils': '../../src/utils'
     },
     shim: {
-        'keymaster': {
-            exports: 'key'
+        'jquery.hotkeys': {
+            deps: ['jquery']
         },
         'underscore': {
             exports: '_'
@@ -47,7 +47,7 @@ require.config({
 });
 
 require(
-    ['demo', '../../src/EventEmitter', 'jquery', 'keymaster', 'underscore', 'globals', 'domReady!'],
+    ['demo', '../../src/EventEmitter', 'jquery', 'jquery.hotkeys', 'underscore', 'globals', 'domReady!'],
     function(td) {
         'use strict';
 

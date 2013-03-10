@@ -61,11 +61,26 @@ define(['./Point3D', './MovePath'], function(Point3D, MovePath) {
         }
     };
 
+    Entity.prototype.startMovement = function(dir) {
+        fbug('start movement '+ dir);
+        this.nextStepDir = dir;
+
+        if(!this.hasState('move')) {
+            this.move(dir);
+        }
+    };
+
+    Entity.prototype.stopMovement = function() {
+        fbug('end movement');
+
+        this.nextStepDir = null;
+    };
+
+
     Entity.prototype.moveEnd = function() {
         this.pos = this.newPos;
 
         if(this.nextStepDir) {
-            this.removeState('move');
             this.move(this.nextStepDir);
         }
         else {
@@ -76,16 +91,10 @@ define(['./Point3D', './MovePath'], function(Point3D, MovePath) {
         }
     };
 
-    Entity.prototype.startMovement = function(dir) {
 
-    };
+
 
     Entity.prototype.move = function(dir) {
-        if(this.hasState('move')) {
-            this.nextStepDir = dir;
-            return;
-        }
-
         var targetTile = this.pos.nearestPosInDirection(dir);
 
         this.newPos = targetTile;
