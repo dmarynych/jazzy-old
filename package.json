@@ -1,0 +1,20 @@
+{
+    "name": "jazzy",
+    "version": "0.0.1",
+    "description": "Jazzy Game Engine",
+    "author": "Dima Marynych <dima@marynych.com>",
+    "homepage": "http://github.com/dmarynych/jazzy",
+
+    "repositories": [
+        {
+            "type": "git",
+            "url": "http://github.com/dmarynych/jazzy"
+        }
+    ],
+
+    "dependencies": {
+        "bower": "*",
+        "yuidocjs": "*",
+        "testacular": "*"
+    }
+}

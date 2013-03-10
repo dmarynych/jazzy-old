@@ -1,0 +1,11 @@
+{
+    "id": "lake_rb",
+    "type": "tile",
+    "props": [],
+
+    "sprite": {
+        "imageSrc": "tiles/terrain_atlas.png",
+        "pos": [256, 416],
+        "size": [32, 32]
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "id": "testTile",
+    "type": "tile",
+    "props": ["walkable"],
+
+    "sprite": {
+        "imageSrc": "tiles/terrain_atlas.png",
+        "pos": [672, 160],
+        "size": [32, 32]
+    }
+}

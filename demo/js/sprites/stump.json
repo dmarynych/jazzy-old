@@ -1,0 +1,6 @@
+{
+    "name": "stump",
+    "imageSrc": "tiles/terrain_atlas.png",
+    "pos": [384, 384],
+    "size": [64, 64]
+}

@@ -12,8 +12,8 @@ Jazzy is full stack game-framework, with bunch of features, including:
 * AMD module structure, by RequireJS
 
 For purpose of speed optimisation, jazzy has 2 main game-object type
-Tile - is any object, on background, which isnt interactive
-Entity - any interactive game object, like monsters, trees, houses etc.
+Tile - is any object, in background, which is not interactive.
+Entity, on the contrary, is interactive game object, like monsters, trees, houses etc.
 
 Understanding this, game bootstrapping is pretty simple.
 First, you creating a game
@@ -25,7 +25,7 @@ First, you creating a game
   });
 ```
 
-Then, you nedd to add some player to game. Player will appear on tile, with coordinates [0, 1].
+Then, you need to add some player to game. Player will appear on tile, with coordinates [0, 1].
 ```js
 game.addEntity({
     id: 'playerId',

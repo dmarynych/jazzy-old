@@ -1,0 +1,11 @@
+{
+    "id": "water",
+    "type": "tile",
+    "props": [],
+
+    "sprite": {
+        "imageSrc": "tiles/terrain_atlas.png",
+        "pos": [224, 384],
+        "size": [32, 32]
+    }
+}

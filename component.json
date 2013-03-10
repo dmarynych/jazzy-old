@@ -1,0 +1,14 @@
+{
+  "name": "web",
+  "version": "0.0.0",
+  "dependencies": {
+    "async": "~0.1.22",
+    "underscore": "~1.4.3",
+    "jquery": "*",
+    "requirejs": "~2.1.2",
+    "requirejs-plugins": "latest",
+    "requirejs-domready": "~2.0.1",
+    "requirejs-i18n": "~2.0.1",
+    "keymaster": "latest"
+  }
+}

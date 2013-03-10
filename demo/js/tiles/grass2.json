@@ -1,0 +1,11 @@
+{
+    "id": "grass2",
+    "type": "tile",
+    "props": ["walkable"],
+
+    "sprite": {
+        "imageSrc": "tiles/terrain_atlas.png",
+        "pos": [688, 160],
+        "size": [32, 32]
+    }
+}
