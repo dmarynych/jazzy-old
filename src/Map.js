@@ -276,6 +276,15 @@ define(['./Point2D', './Point3D'], function(Point2D, Point3D) {
         return true;
     };
 
+    Map.prototype.getTileByPoint = function(point) {
+        var x = Math.floor(point.x / this.tileW),
+            y = Math.floor(point.y / this.tileH),
+            offsetX = point.x % this.tileW,
+            offsetY = point.y % this.tileH;
+
+        fbug([x, y, offsetX, offsetY]);
+    };
+
     Map.prototype.renderTiles = function() {fbug('render tiles');
         var i, tile, sprite, canvasPos;
         // looping, through array of rendered objects

@@ -1,5 +1,15 @@
+/**
+ Provides the base Widget class...
+
+ @module Entity
+ **/
 
 define(['./Point3D', './MovePath'], function(Point3D, MovePath) {
+
+    /**
+     * Entity constructor
+     * @constructor
+     */
     var Entity = function() {
         this.sprite = null;
         this.dirty = true;
@@ -112,6 +122,11 @@ define(['./Point3D', './MovePath'], function(Point3D, MovePath) {
     };
 
 
+    Entity.prototype.moveToPoint = function(point) {
+        fbug(this.map.getTileByPoint(point));
+
+    };
+
     Entity.prototype.moveEnd = function() {
         this.pos = this.newPos;
 
@@ -125,8 +140,6 @@ define(['./Point3D', './MovePath'], function(Point3D, MovePath) {
             this.addState('idle');
         }
     };
-
-
 
 
     Entity.prototype.move = function(dir) {

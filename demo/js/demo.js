@@ -1,4 +1,4 @@
-define(['../../src/Game', 'jquery'], function(Game) {
+define(['../../src/Game', './Point2D', 'jquery'], function(Game, Point2D) {
     'use strict';
 
     var demo = {
@@ -16,11 +16,15 @@ define(['../../src/Game', 'jquery'], function(Game) {
             game.start();
 
             map = [
-                ['grass2', 'grass3', 'grass1', 'grass1', 'grass1'],
-                ['grass1', 'lake_lt', 'lake_tt', 'lake_tr', 'grass1'],
-                ['grass1', 'lake_ll', 'water', 'lake_rr', 'grass1'],
-                ['grass2', 'lake_bl', 'lake_bb', 'lake_rb', 'grass1'],
-                ['grass2', 'grass3', 'grass1', 'grass1', 'grass3']
+                ['grass2', 'grass3', 'grass1', 'grass2', 'grass1', 'grass2', 'grass1', 'grass3'],
+                ['grass1', 'lake_lt', 'lake_tt', 'lake_tr', 'grass1', 'grass1', 'grass2', 'grass2'],
+                ['grass1', 'lake_ll', 'water', 'lake_rr', 'grass1', 'grass2', 'grass1', 'grass2'],
+                ['grass2', 'lake_bl', 'lake_bb', 'lake_rb', 'grass1', 'grass2', 'grass3', 'grass1'],
+                ['grass2', 'grass3', 'grass1', 'grass1', 'grass1', 'grass1', 'grass2', 'grass1'],
+                ['grass1', 'grass1', 'grass1', 'grass2', 'grass1', 'grass2', 'grass1', 'grass2'],
+                ['grass1', 'grass1', 'grass2', 'grass1', 'grass3', 'grass1', 'grass2', 'grass1'],
+                ['grass2', 'grass1', 'grass3', 'grass2', 'grass2', 'grass3', 'grass1', 'grass3'],
+                ['grass2', 'grass3', 'grass1', 'grass1', 'grass3', 'grass2', 'grass2', 'grass2']
             ];
 
             game.setMap(map);
@@ -37,6 +41,11 @@ define(['../../src/Game', 'jquery'], function(Game) {
                 pos: [4, 4]
             });
 
+            game.map.mainCanvas.on('click', function(e) {
+                var point = new Point2D(e.offsetX, e.offsetY);
+                fbug(point);
+                game.getEntity('player').moveToPoint(point);return false;
+            });
             $(document)
                 .bind('keydown', 'left', function() {
                     game.getEntity('player').startMovement('left');return false;

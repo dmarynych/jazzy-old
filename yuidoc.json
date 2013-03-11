@@ -1,10 +1,11 @@
 {
-    "name": "The Foo API",
-    "description": "The Foo API: a library for doing X, Y, and Z",
+    "name": "Jazzy API",
+    "description": "Jazzy, the Game Engine",
     "version": "1.2.1",
     "url": "http://example.com/",
     "options": {
-        "outdir": "../../docs",
-		"paths": "./js/"
+        "exclude": "./test, ./demo, ./components",
+        "outdir": "./docs"
+
     }
 }
