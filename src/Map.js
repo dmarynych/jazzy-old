@@ -148,7 +148,9 @@ define(['./Point2D', './Point3D'], function(Point2D, Point3D) {
 
 
 
-
+    Map.prototype.getTileByPos = function(pos) {
+        return this.tilesByPos[pos.str];
+    };
 
 
 
@@ -161,7 +163,12 @@ define(['./Point2D', './Point3D'], function(Point2D, Point3D) {
      */
 
     Map.prototype.addEntity = function(entity) {
-        this.entitiesByPos[entity.pos.str] = entity;
+        if(!this.entitiesByPos[entity.pos.str]) {
+            this.entitiesByPos[entity.pos.str] = [];
+        }
+        this.entitiesByPos[entity.pos.str].push(entity);
+
+        entity.map = this;
 
         this.rebuildEntitiesCache();
     };
@@ -178,7 +185,7 @@ define(['./Point2D', './Point3D'], function(Point2D, Point3D) {
 
                 // drawing, only if its marked as "dirty", it means that smth. was changed
                 if(ent) {
-                    this.entitiesVisible.push(this.entitiesByPos[ind]);
+                    this.entitiesVisible.push(this.entitiesByPos[ind][0]);
                 }
             }
         }

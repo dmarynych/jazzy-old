@@ -5,6 +5,7 @@ define(['./Point3D', './MovePath'], function(Point3D, MovePath) {
         this.dirty = true;
         this.movePath = null;
         this.states = [];
+        this.props = [];
     };
 
     /**
@@ -37,6 +38,40 @@ define(['./Point3D', './MovePath'], function(Point3D, MovePath) {
     Entity.prototype.removeState = function(state) {
         if(this.hasState(state)) {
             this.states = _.without(this.states, state);
+        }
+    };
+
+
+    /**
+     * Checking if Entity has given property.
+     *
+     * @param {String} prop
+     * @returns {boolean}
+     */
+    Entity.prototype.hasProp = function(prop) {
+        return _.indexOf(this.props, prop) !== -1;
+    };
+
+    /**
+     * Adding of new Entity property. Something like 'walkable', 'poisoned', 'undead'
+     * and any other, whatever your game needs.
+     *
+     * @param prop
+     */
+    Entity.prototype.addProp = function(prop) {
+        if(!this.hasState(prop)) {
+            this.props.push(prop);
+        }
+    };
+
+    /**
+     * Removing any of Entity prop.
+     *
+     * @param prop
+     */
+    Entity.prototype.removeProp = function(prop) {
+        if(this.hasState(prop)) {
+            this.props = _.without(this.props, prop);
         }
     };
 
@@ -95,15 +130,23 @@ define(['./Point3D', './MovePath'], function(Point3D, MovePath) {
 
 
     Entity.prototype.move = function(dir) {
-        var targetTile = this.pos.nearestPosInDirection(dir);
+        var targetPos = this.pos.nearestPosInDirection(dir),
+            targetTile = this.map.getTileByPos(targetPos);
 
-        this.newPos = targetTile;
-        fbug('move: '+ dir);
         this.setDirection(dir);
+
+        // moving only if able to
+        if(!targetTile || !targetTile.hasProp('walkable')) {
+            return;
+        }
+
+        this.newPos = targetPos;
+        fbug('move: '+ dir);
+
         this.setAnimation('move');
 
         // and now - moving
-        this.moveTo(targetTile);
+        this.moveTo(targetPos);
 
         this.removeState('idle');
         this.addState('move');
