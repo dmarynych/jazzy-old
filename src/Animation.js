@@ -1,5 +1,5 @@
-define(['./Point2D'], function(Point2D) {
-    var Animation = function(data) {
+define(['./Point2D'], function (Point2D) {
+    var Animation = function (data) {
         this.name = data.name;
         this.animationsRaw = data.animations;
         this.animations = {};
@@ -16,23 +16,23 @@ define(['./Point2D'], function(Point2D) {
         this.prepare();
     };
 
-    Animation.prototype.setAnim = function(name, dir) {
-        this.frameQueue = _.clone(this.animations[name +'_'+ dir]);
+    Animation.prototype.setAnim = function (name, dir) {
+        this.frameQueue = _.clone(this.animations[name + '_' + dir]);
         this.lastFrame = 0;
     };
 
-    Animation.prototype.prepare = function() {
+    Animation.prototype.prepare = function () {
         var colsOnImage = Math.floor(this.imageWidth / this.tileWidth);
 
-        _.each(this.animationsRaw, function(dirData, type) {
-            _.each(dirData, function(pos, dir) {
-                var ind = type+'_'+ dir,
+        _.each(this.animationsRaw, function (dirData, type) {
+            _.each(dirData, function (pos, dir) {
+                var ind = type + '_' + dir,
                     currcol, currow;
-                if(!this.animations[ind]) {
+                if (!this.animations[ind]) {
                     this.animations[ind] = [];
                 }
 
-                for(var i = pos[0]; i <= pos[1]; i++) {
+                for (var i = pos[0]; i <= pos[1]; i++) {
                     currow = Math.floor(i / colsOnImage);
                     currcol = i - (currow * colsOnImage);
 
@@ -42,12 +42,12 @@ define(['./Point2D'], function(Point2D) {
         }.bind(this));
     };
 
-    Animation.prototype.getSpritePos = function() {
+    Animation.prototype.getSpritePos = function () {
         var currTime = new Date().getTime();
 
-        if((currTime - this.lastFrameTime) >= this.updateInterval) {
+        if ((currTime - this.lastFrameTime) >= this.updateInterval) {
             var ql = this.frameQueue.length;
-            if(this.lastFrame >= (ql - 1)) {
+            if (this.lastFrame >= (ql - 1)) {
                 this.lastFrame = 0;
             }
             else {

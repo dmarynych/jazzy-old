@@ -9,6 +9,7 @@
     "requirejs-plugins": "latest",
     "requirejs-domready": "~2.0.1",
     "requirejs-i18n": "~2.0.1",
-    "jquery.hotkeys": "https://github.com/jeresig/jquery.hotkeys.git#~0.1.0"
+    "jquery.hotkeys": "https://github.com/jeresig/jquery.hotkeys.git#~0.1.0",
+    "PathFinding.js": "git@github.com:qiao/PathFinding.js.git"
   }
 }

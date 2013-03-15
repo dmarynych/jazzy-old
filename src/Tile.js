@@ -1,7 +1,7 @@
-define(['./Point2D', './Point3D', './Sprite'], function(Point2D, Point3D, Sprite) {
+define(['./Point2D', './Point3D', './Sprite'], function (Point2D, Point3D, Sprite) {
     'use strict';
 
-    var Tile = function(data) {
+    var Tile = function (data) {
         this.width = data.sprite.size[0];
         this.height = data.sprite.size[1];
         this.pos = data.pos;
@@ -19,7 +19,7 @@ define(['./Point2D', './Point3D', './Sprite'], function(Point2D, Point3D, Sprite
      * @param {String} prop
      * @returns {boolean}
      */
-    Tile.prototype.hasProp = function(prop) {
+    Tile.prototype.hasProp = function (prop) {
         return _.indexOf(this.props, prop) !== -1;
     };
 
@@ -29,8 +29,8 @@ define(['./Point2D', './Point3D', './Sprite'], function(Point2D, Point3D, Sprite
      *
      * @param prop
      */
-    Tile.prototype.addProp = function(prop) {
-        if(!this.hasState(prop)) {
+    Tile.prototype.addProp = function (prop) {
+        if (!this.hasState(prop)) {
             this.props.push(prop);
         }
     };
@@ -40,8 +40,8 @@ define(['./Point2D', './Point3D', './Sprite'], function(Point2D, Point3D, Sprite
      *
      * @param prop
      */
-    Tile.prototype.removeProp = function(prop) {
-        if(this.hasState(prop)) {
+    Tile.prototype.removeProp = function (prop) {
+        if (this.hasState(prop)) {
             this.props = _.without(this.props, prop);
         }
     };

@@ -1,9 +1,9 @@
-define(['./Point2D'], function(Point3D) {
+define(['./Point2D'], function (Point3D) {
     var utils = {
-        translateCoordsTo2D: function(pos, mode) {
+        translateCoordsTo2D: function (pos, mode) {
             var newPos;
 
-            if(mode === '2d') {
+            if (mode === '2d') {
                 newPos = new Point3D(32 * pos.x, 32 * pos.y, 0);
             }
 

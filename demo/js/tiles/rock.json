@@ -1,0 +1,11 @@
+{
+    "id": "rock",
+    "type": "tile",
+    "props": [],
+
+    "sprite": {
+        "imageSrc": "tiles/terrain_atlas.png",
+        "pos": [480, 480],
+        "size": [32, 32]
+    }
+}

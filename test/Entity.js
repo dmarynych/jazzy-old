@@ -1,4 +1,4 @@
-define(['engine/Game', 'engine/Entity'], function(Game, Entity) {
+define(['src/Game', 'src/Entity'], function(Game, Entity) {
     /*var game = new Game({
         container: container,
         fps: 60,

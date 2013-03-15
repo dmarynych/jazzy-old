@@ -1,7 +1,7 @@
 {
     "id": "testTile",
     "type": "tile",
-    "props": ["walkable"],
+    "props": [],
 
     "sprite": {
         "imageSrc": "terrain_atlas.png",

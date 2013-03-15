@@ -1,4 +1,4 @@
-define(['engine/Point2D', 'engine/Point3D'], function(Point2D, Point3D) {
+define(['src/Point2D', 'src/Point3D'], function(Point2D, Point3D) {
 
     describe('Point2D', function() {
         var point = new Point2D(50, 45);

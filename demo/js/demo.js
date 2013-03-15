@@ -22,7 +22,7 @@ define(['../../src/Game', './Point2D', 'jquery'], function(Game, Point2D) {
                 ['grass2', 'lake_bl', 'lake_bb', 'lake_rb', 'grass1', 'grass2', 'grass3', 'grass1'],
                 ['grass2', 'grass3', 'grass1', 'grass1', 'grass1', 'grass1', 'grass2', 'grass1'],
                 ['grass1', 'grass1', 'grass1', 'grass2', 'grass1', 'grass2', 'grass1', 'grass2'],
-                ['grass1', 'grass1', 'grass2', 'grass1', 'grass3', 'grass1', 'grass2', 'grass1'],
+                ['grass1', 'grass1', ['grass2', 'rock'], ['grass2', 'small_rocks'], 'grass3', 'grass1', 'grass2', 'grass1'],
                 ['grass2', 'grass1', 'grass3', 'grass2', 'grass2', 'grass3', 'grass1', 'grass3'],
                 ['grass2', 'grass3', 'grass1', 'grass1', 'grass3', 'grass2', 'grass2', 'grass2']
             ];
@@ -38,13 +38,14 @@ define(['../../src/Game', './Point2D', 'jquery'], function(Game, Point2D) {
             game.addEntity({
                 id: 'player',
                 name: 'Player',
-                pos: [4, 4]
+                pos: [2, 4]
             });
 
-            game.map.mainCanvas.on('click', function(e) {
+            game.map.mainCanvas.on('contextmenu click', function(e) {
                 var point = new Point2D(e.offsetX, e.offsetY);
-                fbug(point);
-                game.getEntity('player').moveToPoint(point);return false;
+                game.getEntity('player').moveToPoint(point);
+
+                return false;
             });
             $(document)
                 .bind('keydown', 'left', function() {

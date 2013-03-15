@@ -2,12 +2,12 @@ require.config({
     baseUrl: "js/",
     paths: {
         'jquery': '../../components/jquery/jquery',
-        'async': '../../components/async/dist/async.min',
+        'async': '../../components/async/lib/async',
         'underscore': '../../components/underscore/underscore',
         'jquery.hotkeys': '../../components/jquery.hotkeys/jquery.hotkeys',
+        'pathfinding': '../../components/PathFinding.js/lib/pathfinding-browser',
 
         // requirejs plugins
-        'css': 'libs/css',
         'i18n': '../../components/requirejs-i18n/i18n',
         'domReady': '../../components/requirejs-domready/domReady',
         'order': '../../components/requirejs-plugins/lib/order',
@@ -25,7 +25,9 @@ require.config({
         'Point2D': '../../src/Point2D',
         'Point3D': '../../src/Point3D',
         'Sprite': '../../src/Sprite',
+        'EventEmitter': '../../src/EventEmitter',
         'Tile': '../../src/Tile',
+        'globals': '../../src/globals',
         'utils': '../../src/utils'
     },
     shim: {
@@ -36,7 +38,10 @@ require.config({
             exports: '_'
         },
         'globals': {
-            deps: ['jquery']
+            deps: ['jquery', 'underscore']
+        },
+        pathfinding: {
+            exports: 'PF'
         }
     },
     i18n: {
@@ -47,7 +52,7 @@ require.config({
 });
 
 require(
-    ['demo', '../../src/EventEmitter', 'jquery', 'jquery.hotkeys', 'underscore', 'globals', 'domReady!'],
+    ['demo', './EventEmitter', 'jquery', 'jquery.hotkeys', 'underscore', './globals', 'domReady!'],
     function(td) {
         'use strict';
 

@@ -1,0 +1,11 @@
+{
+"id": "small_rocks",
+"type": "tile",
+"props": ["walkable"],
+
+"sprite": {
+        "imageSrc": "tiles/terrain_atlas.png",
+        "pos": [512, 480],
+        "size": [32, 32]
+    }
+}

@@ -14,16 +14,16 @@ files = [
     REQUIRE,
     REQUIRE_ADAPTER,
 
-    'src/test/main.js',
+    'test/main.js',
 
     'components/jquery/jquery.js',
     'components/underscore/underscore.js',
-    'components/backbone/backbone.js',
     'components/keymaster/keymaster.js',
+    'components/async/lib/async.js',
 
-    'js/globals.js',
+    'src/globals.js',
     {pattern: 'src/**/*', included: false},
-    {pattern: 'src/test/**/*', included: false},
+    {pattern: 'test/**/*', included: false},
 
     {pattern: 'components/**/*', included: false},
 
@@ -32,7 +32,6 @@ files = [
     {pattern: '*.js', included: false},
 
 
-    {pattern: 'libs/*', included: false},
     {pattern: 'components/*', included: false}
 
 ];

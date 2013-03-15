@@ -1,4 +1,4 @@
-define(['engine/Game', 'engine/Map'], function(Game, Map) {
+define(['src/Game', 'src/Map', , 'src/Tile'], function(Game, Map, Tile) {
     $('<div id="testmap"></div>').appendTo('body');
 
     var container = document.getElementById('testmap'),
@@ -6,7 +6,9 @@ define(['engine/Game', 'engine/Map'], function(Game, Map) {
             container: container,
             fps: 60,
             width: 960,
-            height: 480
+            height: 480,
+            tilesPath: '/base/test/res/',
+            imagesPath: '/base/test/res/'
         });
 
 
@@ -22,24 +24,24 @@ define(['engine/Game', 'engine/Map'], function(Game, Map) {
 
 
     describe('Game files loader', function() {
-        var done;
+        var loadDone, mapDone;
 
         it('is able to load json files', function() {
             var eventWorks = false;
-            game.loader.on('json/engine/test/res/testTile.json', function() {
+            game.loader.on('json/test/res/testTile.json', function() {
                 eventWorks = true;
             });
 
             runs(function() {
                 var that = this;
-                game.load('engine/test/res/testTile', 'json', function(tile) {
+                game.load('test/res/testTile', 'json', function(tile) {
                     that.tile = tile;
-                    done = true;
+                    loadDone = true;
                 });
             });
 
             waitsFor(function() {
-                return done;
+                return loadDone;
             });
 
             runs(function () {
@@ -51,29 +53,34 @@ define(['engine/Game', 'engine/Map'], function(Game, Map) {
 
                 // this is situation, when loaded file is in cache
                 // and should be delivered immidiately
-                game.load('engine/test/res/testTile', 'json', function(tileCache) {
+                game.load('test/res/testTile', 'json', function(tileCache) {
                     expect(tileCache.id).toBeDefined();
                     expect(tileCache.type).toEqual('tile');
                 });
             });
         });
 
-        /*it('is able to load image files', function() {
-            runs(function() {
-                var that = this;
-                game.load('engine/test/res/terrain_atlas.png', 'image', function(image) {
-                    that.image = image;
-                    done = true;
+        it('is able to set map, from array', function() {
+            var eventWorks = false;
+
+            var map =
+                [['testTile', 'testTile', 'testTile', 'testTile'],
+                ['testTile', 'testTileUnWalkable', 'testTile', 'testTile'],
+                ['testTile', 'testTileUnWalkable', 'testTile', 'testTile']];
+
+                game.setMap(map, function() {
+                    mapDone = true;
                 });
-            });
 
-            waitsFor(function() {
-                return done;
-            });
+                waitsFor(function() {
+                    return mapDone;
+                });
 
-            runs(function () {
-                expect(this.image).toBeDefined();
-            });
-        });*/
+                runs(function () {
+                    expect(game.map.tiles.length).toBe(12);
+                });
+        });
+
+
     });
 });
