@@ -153,6 +153,10 @@ define(['./Point3D', './MovePath'], function (Point3D, MovePath) {
 
             this.removeState('move');
             this.addState('idle');
+
+            if(this.onMoveEnd && _.isFunction(this.onMoveEnd)) {
+                this.onMoveEnd();
+            }
         }
     };
 
@@ -168,7 +172,6 @@ define(['./Point3D', './MovePath'], function (Point3D, MovePath) {
             return;
         }
 
-
         fbug('move: ' + dir);
 
         this.setAnimation('move');
@@ -181,7 +184,12 @@ define(['./Point3D', './MovePath'], function (Point3D, MovePath) {
     };
 
     Entity.prototype.moveTo = function (movePath) {
+        var dir;
         this.newPos = movePath.targetPos;
+
+        dir = this.getDirection(this.pos, this.newPos);
+        this.setDirection(dir);
+        this.setAnimation('move');
         fbug('moveto ' + this.newPos.str);
 
         this.movePath = movePath;
@@ -192,17 +200,38 @@ define(['./Point3D', './MovePath'], function (Point3D, MovePath) {
 
         if (this.prevMoveStep) {
             dir = this.getDirection(this.prevMoveStep, curr);
-            this.setDirection(dir);
+            if(dir !== this.direction) {
+                this.setDirection(dir);
+            }
         }
 
         this.prevMoveStep = curr;
     };
 
+    Entity.prototype.getNearestTile = function(dir) {
+        var pos;
+
+        if(dir === 'up') {
+            pos = new Point3D(this.pos.x, this.pos.y - 1);
+        }
+        else if(dir === 'right') {
+            pos = new Point3D(this.pos.x + 1, this.pos.y);
+        }
+        else if(dir === 'down') {
+            pos = new Point3D(this.pos.x, this.pos.y + 1);
+        }
+        else if(dir === 'left') {
+            pos = new Point3D(this.pos.x - 1, this.pos.y);
+        }
+
+        return pos;
+    };
+
     Entity.prototype.getDirection = function (from, to) {
-        var fx = parseInt(from instanceof Point3D ? from.x : from[0]),
-            fy = parseInt(from instanceof Point3D ? from.y : from[1]),
-            tx = parseInt(to instanceof Point3D ? to.x : to[0]),
-            ty = parseInt(to instanceof Point3D ? to.y : to[1]),
+        var fx = parseInt(from.x ? from.x : from[0]),
+            fy = parseInt(from.y ? from.y : from[1]),
+            tx = parseInt(to.x ? to.x : to[0]),
+            ty = parseInt(to.y ? to.y : to[1]),
             dir = 'up';
 
 
@@ -213,13 +242,18 @@ define(['./Point3D', './MovePath'], function (Point3D, MovePath) {
             dir = 'right';
         }
         else if (fx == tx && fy > ty) {
-            dir = 'down';
+            dir = 'up';
         }
         else if (fx == tx && fy < ty) {
-            dir = 'up';
+            dir = 'down';
         }
 
         return dir;
+    };
+
+    Entity.prototype.destroy = function () {
+        fbug('destroy2')
+
     };
 
     Entity.prototype.setDirection = function (dir) {

@@ -248,7 +248,7 @@ define(['./Point2D', './Point3D', './MovePath', 'pathfinding'], function (Point2
     Map.prototype.getPath = function (from, to) {
         var path = [],
             finder = new PF.AStarFinder({
-                allowDiagonal: true
+                allowDiagonal: false
             });
 
         path = finder.findPath(from.x, from.y, to.x, to.y, this.walkMap.clone());
@@ -296,7 +296,7 @@ define(['./Point2D', './Point3D', './MovePath', 'pathfinding'], function (Point2
 
                     entity.movePath.steps.shift();
 
-                    if (entity.movePath.steps.length === 0) {
+                    if (entity.movePath.steps.length === 0) {fbug('MOVE END')
                         entity.moveEnd();
                     }
                 }

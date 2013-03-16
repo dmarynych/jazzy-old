@@ -1,0 +1,22 @@
+{
+    "name": "fireball",
+
+    "animations": {
+        "move": {
+            "up": [16, 23],
+            "left": [0, 7],
+            "right": [32, 39],
+            "down": [48, 55]
+        },
+        "idle": {
+            "up": [16, 23],
+            "left": [0, 7],
+            "right": [32, 39],
+            "down": [48, 55]
+        }
+    },
+
+    "tileWidth": 64,
+    "tileHeight": 64,
+    "updateInterval": 100
+}

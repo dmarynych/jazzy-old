@@ -128,7 +128,7 @@ define(['./Tile', './Map', './Point3D', './Sprite', 'async', './EventEmitter'],
          *
          * @param entityData
          */
-        Game.prototype.addEntity = function (entityData) {
+        Game.prototype.addEntity = function (entityData, callback) {
             require([this.settings.entitiesPath + entityData.name], function (LoadedEntity) {
                 var ent = new LoadedEntity();
 
@@ -147,6 +147,10 @@ define(['./Tile', './Map', './Point3D', './Sprite', 'async', './EventEmitter'],
 
                             ent.init(entityData);
                             this.map.addEntity(ent);
+
+                            if(_.isFunction(callback)) {
+                                callback(ent);
+                            }
                         });
                     }.bind(this);
 

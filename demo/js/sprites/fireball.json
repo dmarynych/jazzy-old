@@ -1,0 +1,7 @@
+{
+    "name": "fireball",
+    "imageSrc": "spells/fireball.png",
+    "animationName": "fireball",
+    "size": [64, 64],
+    "offsets": [-16, -20]
+}
