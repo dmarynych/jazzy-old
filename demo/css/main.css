@@ -151,4 +151,29 @@ body {
 
 
 
+.ui {
+    position: absolute;
+    top: 10px;
+}
+.player_avatar {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
 
+.actions_bar {
+    position: absolute;
+    width: 500px;
+    top: 400px;
+    left: 200px;
+
+    background: url('../img/bg.png');
+}
+.player_action {
+    float: left;
+    width: 64px;
+    height: 64px;
+    padding: 4px;
+
+    background: url('../img/action.png');
+}

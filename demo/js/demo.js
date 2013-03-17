@@ -13,6 +13,14 @@ define(['../../src/Game', './Point2D', 'jquery'], function(Game, Point2D) {
                 }),
                 map;
 
+            var leftOffset = parseInt(($(document).width() - 960) / 2, 10);
+            $('.ui').css({
+                'left': leftOffset,
+                width: 960,
+                height: 480
+
+            });
+
             game.start();
 
             map = [
@@ -44,7 +52,7 @@ define(['../../src/Game', './Point2D', 'jquery'], function(Game, Point2D) {
             game.addEntity({
                 id: 'skeleton',
                 name: 'Skeleton',
-                pos: [6, 6]
+                pos: [6, 4]
             });
 
             game.map.mainCanvas.on('click', function(e) {
@@ -55,9 +63,11 @@ define(['../../src/Game', './Point2D', 'jquery'], function(Game, Point2D) {
             });
 
             game.map.mainCanvas.on('contextmenu', function(e) {
-                var point = new Point2D(e.offsetX, e.offsetY);
-fbug(game.getEntity('player'))
-                game.getEntity('player').castSpell('fireball', point);
+                var point = new Point2D(e.offsetX, e.offsetY),
+                    skeleton = game.getEntity('skeleton'),
+                    player = game.getEntity('player');
+
+                player.castSpell('Fireball', skeleton);
 
                 return false;
             });
@@ -86,6 +96,13 @@ fbug(game.getEntity('player'))
                 })
                 .bind('keyup', 'down', function() {
                     game.getEntity('player').stopMovement();return false;
+                })
+                .bind('keydown', 'tab', function() {
+                    fbug('tab');
+                    return false;
+                })
+                .bind('keydown', '1', function() {
+                    fbug(1)
                 });
             /*game.keypress('keypress:left keypress:up keypress:right keypress:down', function(event, name) {
                 var player = game.getEntity('player');

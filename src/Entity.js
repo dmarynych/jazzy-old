@@ -42,8 +42,9 @@ define(['./Point3D', './MovePath'], function (Point3D, MovePath) {
         }
     };
 
-    Entity.prototype.onMapAdd = function () {
+    Entity.prototype.onMapAdd = function() {
         this.abspos = this.map.getCanvasPos(this.pos);
+        this.game = this.map.game;
     };
 
     /**
@@ -138,6 +139,15 @@ define(['./Point3D', './MovePath'], function (Point3D, MovePath) {
 
 
         fbug([point, newPos, offsets, movePath]);
+
+        this.moveTo(movePath);
+    };
+
+    Entity.prototype.moveToTile = function (pos) {
+        var movePath = this.map.getPath(this.pos, pos);
+
+
+        fbug([pos, movePath]);
 
         this.moveTo(movePath);
     };
@@ -252,8 +262,10 @@ define(['./Point3D', './MovePath'], function (Point3D, MovePath) {
     };
 
     Entity.prototype.destroy = function () {
-        fbug('destroy2')
-
+        fbug('destroy2');
+        //TODO: tmp
+        this.map.entities = _.without(this.map.entities, this);
+        this.map.rebuildEntitiesCache();
     };
 
     Entity.prototype.setDirection = function (dir) {
@@ -292,18 +304,21 @@ define(['./Point3D', './MovePath'], function (Point3D, MovePath) {
 
 
 
-    Entity.prototype.castSpell = function(spellname, target) {
-        var tile = this.map.getTileByPoint(target),
-            dir = this.getDirection(this.pos, tile),
-            nearest = this.getNearestTile(dir);
+    Entity.prototype.castSpell = function(spellName, target) {
+        this.setAnimation('cast');
+        setTimeout(function() {
+            this.setAnimation('idle');
 
-        this.map.game.addEntity({
-            id: 'fireball',
-            name: 'Fireball',
-            pos: [nearest.x, nearest.y]
-        }, function(fb) {
-            fb.moveToPoint(target);
-        });
+            this.game.addEntity({
+                id: 'fireball',
+                name: 'Fireball',
+                pos: [this.pos.x, this.pos.y]
+            }, function(fb) {
+                fb.moveToTile(target.pos);
+            });
+        }.bind(this), 700);
+
+
     };
 
 

@@ -165,11 +165,11 @@ define(['./Point2D', './Point3D', './MovePath', 'pathfinding'], function (Point2
     };
 
     Map.prototype.rebuildEntitiesCache = function () {
-        var x, y, ind, ent;
+        var x, y, ind, i, ent;
         this.entitiesVisible = [];
 
         // getting only visible entities
-        for (y = 0; y < this.rows; y++) {
+        /*for (y = 0; y < this.rows; y++) {
             for (x = 0; x < this.columns; x++) {
                 ind = '0_' + x + '_' + y;
                 ent = this.entitiesByPos[ind];
@@ -179,7 +179,15 @@ define(['./Point2D', './Point3D', './MovePath', 'pathfinding'], function (Point2
                     this.entitiesVisible.push(this.entitiesByPos[ind][0]);
                 }
             }
+        }*/
+        for (i = 0; i < this.entities.length; i++) {
+            ent = this.entities[i];
+
+            if (ent) {
+                this.entitiesVisible.push(ent);
+            }
         }
+
         //fbug(['cache is rebuilt', this.tilesToDraw]);
         // in this case, we immidiately draw tiles
         //this.renderEntities();
