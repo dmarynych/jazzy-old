@@ -292,6 +292,7 @@ define(['./Point2D', './Point3D', './MovePath', 'pathfinding'], function (Point2
                     canvasPos.y += step.y;
 
 
+                    //TODO: very unoptimized
                     entity.mover([canvasPos.x, canvasPos.y]);
 
                     entity.movePath.steps.shift();

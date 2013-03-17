@@ -1,0 +1,7 @@
+{
+    "name": "skeleton",
+    "imageSrc": "mobs/skeleton.png",
+    "animationName": "player",
+    "size": [64, 64],
+    "offsets": [-16, -40]
+}

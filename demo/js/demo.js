@@ -41,6 +41,12 @@ define(['../../src/Game', './Point2D', 'jquery'], function(Game, Point2D) {
                 pos: [2, 4]
             });
 
+            game.addEntity({
+                id: 'skeleton',
+                name: 'Skeleton',
+                pos: [6, 6]
+            });
+
             game.map.mainCanvas.on('click', function(e) {
                 var point = new Point2D(e.offsetX, e.offsetY);
                 game.getEntity('player').moveToPoint(point);

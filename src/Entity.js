@@ -291,5 +291,21 @@ define(['./Point3D', './MovePath'], function (Point3D, MovePath) {
     };
 
 
+
+    Entity.prototype.castSpell = function(spellname, target) {
+        var tile = this.map.getTileByPoint(target),
+            dir = this.getDirection(this.pos, tile),
+            nearest = this.getNearestTile(dir);
+
+        this.map.game.addEntity({
+            id: 'fireball',
+            name: 'Fireball',
+            pos: [nearest.x, nearest.y]
+        }, function(fb) {
+            fb.moveToPoint(target);
+        });
+    };
+
+
     return Entity;
 });

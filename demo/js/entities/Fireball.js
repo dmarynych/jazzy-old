@@ -4,6 +4,7 @@ define(['./../Entity'], function (Entity) {
         this.spriteName = 'fireball';
         this.direction = 'left';
         this.animationName = 'move';
+        this.pathfinding = false;
 
 
     };
