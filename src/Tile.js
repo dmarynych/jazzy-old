@@ -7,6 +7,8 @@ define(['./Point2D', './Point3D', './Sprite'], function (Point2D, Point3D, Sprit
         this.pos = data.pos;
 
         this.sprite = new Sprite(data.sprite);
+        this.sprite.init();
+
         this.type = data.type;
         this.props = data.props || [];
 

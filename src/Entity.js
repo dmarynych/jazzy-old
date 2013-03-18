@@ -16,6 +16,8 @@ define(['./Point3D', './MovePath'], function (Point3D, MovePath) {
         this.movePath = null;
         this.states = [];
         this.props = [];
+
+        this.drawers = [];
     };
 
     /**
@@ -33,6 +35,7 @@ define(['./Point3D', './MovePath'], function (Point3D, MovePath) {
         if (this.sprite.animation) {
             this.sprite.animation.setAnim(this.animationName, this.direction);
         }
+        this.sprite.init();
 
         this.cx = this.sprite.width / 2;
         this.cy = this.sprite.height - 4;
@@ -288,7 +291,11 @@ define(['./Point3D', './MovePath'], function (Point3D, MovePath) {
      *
      */
     Entity.prototype.checkAnimation = function () {
-        this.dirty = true;
+        if(this.sprite.animation.isTimeForChanges()) {
+            this.sprite.draw();
+
+            this.dirty = true;
+        }
     };
 
     /**

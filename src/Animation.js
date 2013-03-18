@@ -17,6 +17,9 @@ define(['./Point2D'], function (Point2D) {
     };
 
     Animation.prototype.setAnim = function (name, dir) {
+        this.animName = name;
+        this.animDir = dir;
+
         this.frameQueue = _.clone(this.animations[name + '_' + dir]);
         this.lastFrame = 0;
     };
@@ -42,10 +45,14 @@ define(['./Point2D'], function (Point2D) {
         }.bind(this));
     };
 
-    Animation.prototype.getSpritePos = function () {
+    Animation.prototype.isTimeForChanges = function() {
         var currTime = new Date().getTime();
 
-        if ((currTime - this.lastFrameTime) >= this.updateInterval) {
+        return (currTime - this.lastFrameTime) >= this.updateInterval;
+    };
+
+    Animation.prototype.getSpritePos = function () {
+        if (this.isTimeForChanges()) {
             var ql = this.frameQueue.length;
             if (this.lastFrame >= (ql - 1)) {
                 this.lastFrame = 0;
@@ -54,7 +61,7 @@ define(['./Point2D'], function (Point2D) {
                 this.lastFrame++;
             }
 
-            this.lastFrameTime = currTime;
+            this.lastFrameTime = new Date().getTime();
         }
 
         return this.frameQueue[this.lastFrame];

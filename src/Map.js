@@ -104,12 +104,14 @@ define(['./Point2D', './Point3D', './MovePath', 'pathfinding'], function (Point2
 
     Map.prototype.prepareEntitiesToDraw = function () {
         var i, ent;
+
+        this.prevEntitiesToDraw = this.entitiesToDraw;
         this.entitiesToDraw = [];
         for (i = 0; i < this.entitiesVisible.length; i++) {
             ent = this.entitiesVisible[i];
 
             // checking, if there's new anim frame
-            if (ent.animation) {
+            if (ent.sprite.animation) {
                 ent.checkAnimation();
             }
 
@@ -317,14 +319,15 @@ define(['./Point2D', './Point3D', './MovePath', 'pathfinding'], function (Point2
 
              canvasPos.x, canvasPos.y,
              sprite.width, sprite.height]);*/
-            this.mainCanvas2d.drawImage(
+            /*this.mainCanvas2d.drawImage(
                 sprite.image,
 
                 spritePos.x, spritePos.y,
                 sprite.width, sprite.height,
 
                 canvasPos.x, canvasPos.y,
-                sprite.width, sprite.height);
+                sprite.width, sprite.height);*/
+            this.mainCanvas2d.drawImage(sprite.getSprite(), canvasPos.x, canvasPos.y);
 
             /*if(true) {
              this.mainCanvas2d.arc(canvasPos.x + entity.cx, canvasPos.y +  + entity.cy, 3, 0, 180, false);
@@ -386,14 +389,15 @@ define(['./Point2D', './Point3D', './MovePath', 'pathfinding'], function (Point2
             sprite = tile.sprite;
             canvasPos = this.getCanvasPos(tile.pos);
 
-            this.tilesCanvas2d.drawImage(
+            /*this.tilesCanvas2d.drawImage(
                 sprite.image,
 
                 sprite.pos.x, sprite.pos.y,
                 sprite.width, sprite.height,
 
                 canvasPos.x, canvasPos.y,
-                sprite.width, sprite.height);
+                sprite.width, sprite.height);*/
+            this.tilesCanvas2d.drawImage(sprite.getSprite(), canvasPos.x, canvasPos.y);
 
             if (true) {
                 this.tilesCanvas2d.fillStyle = '#222';
