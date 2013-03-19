@@ -3,7 +3,9 @@ define(['Entity'], function(Entity) {
         this.spriteName = 'skeleton';
         this.direction = 'left';
         this.animationName = 'idle';
+        this.props = ['bad'];
 
+        this.hp = 4;
         this.maxHp = 10;
 
         this.displayHp = true;
@@ -11,18 +13,10 @@ define(['Entity'], function(Entity) {
     Skeleton.prototype = new Entity();
 
     Skeleton.prototype.onInit = function() {
-        this.hp = this.maxHp;
+        //this.hp = this.maxHp;
     };
 
-    Skeleton.prototype.showHp = function() {
-        this.drawers.add('hpbar', function(canvas) {
 
-        });
-    };
-
-    Skeleton.prototype.hideHp = function() {
-
-    };
 
     return Skeleton;
 });

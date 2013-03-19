@@ -13,16 +13,14 @@ define(['./../Entity'], function (Entity) {
     Fireball.prototype = new Entity();
 
     Fireball.prototype.cast = function(target) {
-
+        this.target = target;
+        this.moveToTile(target.pos);
     };
 
     Fireball.prototype.onMoveEnd = function() {
         this.destroy();
 
-        this.game.getEntity('skeleton').setAnimation('death');
-        setTimeout(function() {
-            this.game.getEntity('skeleton').setAnimation('dead');
-        }.bind(this), 600);
+        this.target.dealDamage(1);
     };
 
     return Fireball;

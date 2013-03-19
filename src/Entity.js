@@ -267,6 +267,7 @@ define(['./Point3D', './MovePath'], function (Point3D, MovePath) {
     Entity.prototype.destroy = function () {
         fbug('destroy2');
         //TODO: tmp
+        this.sprite.drawers = [];
         this.map.entities = _.without(this.map.entities, this);
         this.map.rebuildEntitiesCache();
     };
@@ -310,6 +311,11 @@ define(['./Point3D', './MovePath'], function (Point3D, MovePath) {
     };
 
 
+    Entity.prototype.hilit = function () {
+        this.sprite.hilit();
+    };
+
+
 
     Entity.prototype.castSpell = function(spellName, target) {
         this.setAnimation('cast');
@@ -321,11 +327,46 @@ define(['./Point3D', './MovePath'], function (Point3D, MovePath) {
                 name: 'Fireball',
                 pos: [this.pos.x, this.pos.y]
             }, function(fb) {
-                fb.moveToTile(target.pos);
+                fb.cast(target);
+
             });
         }.bind(this), 700);
+    };
 
 
+    Entity.prototype.showHp = function() {
+        //TODO: optimize
+        this.sprite.drawers.push(function(ctx) {
+            var total = 60,
+                left = (this.hp * total) / this.maxHp;//fbug([this.hp, this.maxHp, total, left])
+            ctx.rect(0, 10, total, 6);
+            ctx.fillStyle = 'red';
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.rect(0, 10, left, 6);
+            ctx.fillStyle = 'blue';
+
+
+            ctx.fill();
+        }.bind(this));
+    };
+
+    Entity.prototype.dealDamage = function(amount) {
+        this.hp -= amount;
+
+        if(this.hp <= 0) {
+            this.die();
+        }
+    };
+
+    Entity.prototype.die = function() {
+        this.sprite.drawers = [];
+
+        this.setAnimation('death');
+        setTimeout(function() {
+            this.setAnimation('dead');
+        }.bind(this), 600);
     };
 
 

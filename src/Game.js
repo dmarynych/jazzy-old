@@ -127,6 +127,7 @@ define(['./Tile', './Map', './Point3D', './Sprite', 'async', './EventEmitter'],
          * Adding entity to game.
          *
          * @param entityData
+         * @param callback
          */
         Game.prototype.addEntity = function (entityData, callback) {
             require([this.settings.entitiesPath + entityData.name], function (LoadedEntity) {
@@ -142,6 +143,7 @@ define(['./Tile', './Map', './Point3D', './Sprite', 'async', './EventEmitter'],
 
                         this.load(path, 'image', function (image) {
                             sprite.image = image;
+                            sprite.entity = ent;
                             ent.sprite = new Sprite(sprite);
                             fbug(ent);
 
@@ -227,6 +229,22 @@ define(['./Tile', './Map', './Point3D', './Sprite', 'async', './EventEmitter'],
                     callback.bind(this)(files);
                 }.bind(this));
             }
+        };
+
+
+        Game.prototype.selectEntity = function(filter) {
+            var ent = _.find(this.map.entities, function(ent) {
+                return ent.hasProp(filter.hasProp);
+            });
+
+            this.selectedEntity = ent;
+
+            ent.showHp();
+        };
+
+
+        Game.prototype.getSelectedEntity = function() {
+            return this.selectedEntity;
         };
 
         return Game;

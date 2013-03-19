@@ -9,6 +9,9 @@ define(['./Point2D', './Animation'], function (Point2D, Animation) {
         this.height = data.size[1];
         this.image = data.image;
         this.imageSrc = data.imageSrc;
+        this.entity = data.entity;
+
+        this.drawers = [];
 
         if (data.animData) {
             this.animation = new Animation(_.extend(data.animData, {
@@ -32,10 +35,12 @@ define(['./Point2D', './Animation'], function (Point2D, Animation) {
 
 
 
-    Sprite.prototype.draw= function() {
+    Sprite.prototype.draw = function() {
         var spritePos = this.getSpritePos();
 
         this.canvas2d.clearRect(0, 0, this.width, this.height);
+
+
 
         this.canvas2d.drawImage(this.image,
             spritePos.x, spritePos.y,
@@ -43,6 +48,12 @@ define(['./Point2D', './Animation'], function (Point2D, Animation) {
 
             0, 0,
             this.width, this.height);
+
+        if(this.drawers.length > 0) {
+            _.each(this.drawers, function(drawer) {
+                drawer(this.canvas2d);
+            }.bind(this));
+        }
     };
 
     Sprite.prototype.getSprite = function () {
@@ -60,6 +71,10 @@ define(['./Point2D', './Animation'], function (Point2D, Animation) {
         }
 
         return pos;
+    };
+
+    Sprite.prototype.hilit = function () {
+
     };
 
     return Sprite;

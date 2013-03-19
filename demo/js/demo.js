@@ -98,11 +98,14 @@ define(['../../src/Game', './Point2D', 'jquery'], function(Game, Point2D) {
                     game.getEntity('player').stopMovement();return false;
                 })
                 .bind('keydown', 'tab', function() {
-                    fbug('tab');
+                    game.selectEntity({dist: 10, hasProp: 'bad'});
                     return false;
                 })
                 .bind('keydown', '1', function() {
-                    fbug(1)
+                    var skeleton = game.getSelectedEntity(),
+                        player = game.getEntity('player');
+
+                    player.castSpell('Fireball', skeleton);
                 });
             /*game.keypress('keypress:left keypress:up keypress:right keypress:down', function(event, name) {
                 var player = game.getEntity('player');
