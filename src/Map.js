@@ -71,15 +71,14 @@ define(['./Point2D', './Point3D', './MovePath', 'pathfinding'], function (Point2
          return;
          }*/
 
+        this.prepareEntitiesToDraw();
+        this.renderEntities();
+
+
 
         // fps counter
         diff = time - this.lastFrameTime;
         this.currFps = 1000 / diff;
-
-
-        this.prepareEntitiesToDraw();
-        this.renderEntities();
-
 
         // fps counter
         endTime = new Date().getTime();
@@ -98,8 +97,7 @@ define(['./Point2D', './Point3D', './MovePath', 'pathfinding'], function (Point2
 
         // now updating fps counter
         this.fpsEl.html('fps: ' + _.average(this.fpsStack).toFixed(0) + '<br> ' +
-            'time: ' + _.average(this.frameTimeStack).toFixed(0) + 'ms. <br> ' +
-            'obj: ' + _.average(this.numRenderedObjectsStack).toFixed(0));
+            'time: ' + _.average(this.frameTimeStack).toFixed(0) + 'ms. <br> ');
     };
 
     Map.prototype.prepareEntitiesToDraw = function () {
