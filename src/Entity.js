@@ -48,6 +48,11 @@ define(['./Point3D', './MovePath'], function (Point3D, MovePath) {
     Entity.prototype.onMapAdd = function() {
         this.abspos = this.map.getCanvasPos(this.pos);
         this.game = this.map.game;
+
+        if(this.followMap === true) {
+            this.map.followEntity(this);
+        }
+
     };
 
     /**

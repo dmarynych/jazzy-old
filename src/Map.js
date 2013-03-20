@@ -1,4 +1,4 @@
-define(['./Point2D', './Point3D', './MovePath', 'pathfinding'], function (Point2D, Point3D, MovePath) {
+define(['./Point2D', './Point3D', './MovePath', './RendererCanvas2D', 'pathfinding'], function (Point2D, Point3D, MovePath, RendererCanvas2D) {
     'use strict';
 
     var Map = function (game) {
@@ -7,6 +7,8 @@ define(['./Point2D', './Point3D', './MovePath', 'pathfinding'], function (Point2
         this.numRenderedObjectsStack = [];
 
         this.container = $(this.settings.container);
+
+        this.mapAbsOffsets = {x: 0, y:0};
 
         this.tileW = 32;
         this.tileH = 32;
@@ -21,6 +23,9 @@ define(['./Point2D', './Point3D', './MovePath', 'pathfinding'], function (Point2
         this.fpsStack = [];
         this.frameTimeStack = [];
 
+        this.renderer = new RendererCanvas2D();
+
+
     };
 
     Map.prototype.init = function () {
@@ -28,18 +33,6 @@ define(['./Point2D', './Point3D', './MovePath', 'pathfinding'], function (Point2
 
         var leftOffset = parseInt(($(document).width() - this.settings.width) / 2, 10);
         this.container.css('left', leftOffset);
-
-        this.tilesCanvas = $('<canvas class="game_canvas tiles_canvas"></canvas>')
-            .attr({
-                width: this.settings.width,
-                height: this.settings.height
-            })
-            .css({
-                'z-index': 1
-            })
-            .appendTo(this.container);
-
-        this.tilesCanvas2d = this.tilesCanvas.get(0).getContext('2d');
 
         this.mainCanvas = $('<canvas class="game_canvas main_canvas"></canvas>')
             .attr({
@@ -70,15 +63,25 @@ define(['./Point2D', './Point3D', './MovePath', 'pathfinding'], function (Point2
          requestAnimFrame( this.tick.bind(this) );
          return;
          }*/
-
+        /*if(this.frameNumber % 3 == 0) {
+            this.mapAbsOffsets.x++;
+            this.mapAbsOffsets.y++;
+        }*/
 
         // fps counter
         diff = time - this.lastFrameTime;
         this.currFps = 1000 / diff;
 
 
+
+
+        this.rebuildTilesCache();
+        this.renderTiles();
+
         this.prepareEntitiesToDraw();
         this.renderEntities();
+
+        //var renderObjects = this.getDirtyEntities();
 
 
         // fps counter
@@ -100,6 +103,16 @@ define(['./Point2D', './Point3D', './MovePath', 'pathfinding'], function (Point2
         this.fpsEl.html('fps: ' + _.average(this.fpsStack).toFixed(0) + '<br> ' +
             'time: ' + _.average(this.frameTimeStack).toFixed(0) + 'ms. <br> ' +
             'obj: ' + _.average(this.numRenderedObjectsStack).toFixed(0));
+    };
+
+
+    Map.prototype.followEntity = function (entity) {
+
+    };
+
+
+    Map.prototype.getDirtyEntities = function (entity) {
+
     };
 
     Map.prototype.prepareEntitiesToDraw = function () {
@@ -125,7 +138,9 @@ define(['./Point2D', './Point3D', './MovePath', 'pathfinding'], function (Point2
     };
 
     Map.prototype.getCanvasPos = function (pos) {
-        return new Point2D(this.tileW * pos.x, this.tileH * pos.y);
+        var x = (this.tileW * pos.x) + this.mapAbsOffsets.x,
+            y = (this.tileH * pos.y) + this.mapAbsOffsets.y;
+        return new Point2D(x, y);
     };
 
     Map.prototype.drawDebugStuff = function () {
@@ -282,7 +297,7 @@ define(['./Point2D', './Point3D', './MovePath', 'pathfinding'], function (Point2
         //fbug(this.entitiesToDraw);
         var i, entity, sprite, spritePos, canvasPos;
 
-        this.mainCanvas2d.clearRect(0, 0, 400, 400);
+        //this.mainCanvas2d.clearRect(0, 0, 400, 400);
 
         // looping, through array of rendered objects
         for (i = 0; i < this.entitiesToDraw.length; i++) {
@@ -348,8 +363,6 @@ define(['./Point2D', './Point3D', './MovePath', 'pathfinding'], function (Point2
 
         this.tiles.push(tile);
 
-        this.rebuildTilesCache();
-
         this.updateWalkMap();
     };
 
@@ -367,7 +380,7 @@ define(['./Point2D', './Point3D', './MovePath', 'pathfinding'], function (Point2
         }
         //fbug(['cache is rebuilt', this.tilesToDraw]);
         // in this case, we immidiately draw tiles
-        this.renderTiles();
+
 
         return true;
     };
@@ -397,14 +410,17 @@ define(['./Point2D', './Point3D', './MovePath', 'pathfinding'], function (Point2
 
                 canvasPos.x, canvasPos.y,
                 sprite.width, sprite.height);*/
-            this.tilesCanvas2d.drawImage(sprite.getSprite(), canvasPos.x, canvasPos.y);
+            this.mainCanvas2d.drawImage(sprite.getSprite(), canvasPos.x, canvasPos.y);
 
-            if (true) {
-                this.tilesCanvas2d.fillStyle = '#222';
-                this.tilesCanvas2d.fillText(tile.pos.x + ':' + tile.pos.y, canvasPos.x + 8, canvasPos.y + 16);
+            if (false) {
+                this.mainCanvas2d.fillStyle = '#222';
+                this.mainCanvas2d.fillText(tile.pos.x + ':' + tile.pos.y, canvasPos.x + 8, canvasPos.y + 16);
             }
         }
     };
+
+
+
 
     return Map;
 });
